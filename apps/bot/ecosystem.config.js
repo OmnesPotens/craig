@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'Craig',
-      script: 'dist/sharding/index.js',
+      script: 'dist/index.js',
       wait_ready: true,
       kill_timeout: 3000,
       env: {

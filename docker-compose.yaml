@@ -1,0 +1,45 @@
+version: '3.1'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: demo
+      POSTGRES_DB: craig
+      POSTGRES_USER: craig
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U craig"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+  craig:
+    build: .
+    ports:
+    - "3000:3000"
+    - "5029:5029"
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      DISCORD_BOT_TOKEN: "dummy"
+      DISCORD_APP_ID: "dummy"
+      CLIENT_ID: "dummy"
+      CLIENT_SECRET: "dummy"
+      DATABASE_URL: "postgresql://craig:demo@db:5432/craig?schema=public"
+      API_HOMEPAGE: "http://localhost:5029"
+      API_HOST: "0.0.0.0"
+      ENNUIZEL_BASE: "https://ez.craig.horse/"
+      NODE_ENV: 'development'
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+      redis:
+        condition: service_started
+   # command: sleep infinity
