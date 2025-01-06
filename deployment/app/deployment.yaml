@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: craig
+spec:
+  selector:
+    matchLabels:
+      app: craig
+  template:
+    metadata:
+      labels:
+        app: craig
+    spec:
+      containers:
+      - name: craig
+        image: 992382534381.dkr.ecr.us-east-1.amazonaws.com/cs-prod-craig-bot:22d746a
+        resources:
+          limits:
+            cpu: 2
+            memory: 4Gi
+          requests:
+            cpu: 2
+            memory: 4Gi
+        envFrom:
+          - secretRef:
+              name: craig-secrets
+

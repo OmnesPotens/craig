@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-craig-bot
+  namespace: cs
+spec:
+  destination:
+    name: cs-prod-us-east-1
+    namespace: craig-bot
+  project: apps-cs-prod
+  source:
+    repoURL: https://github.com/ConsenSys/w3f-craig.git
+    path: deployment/app
+    targetRevision: master
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
