@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: craig
-        image: 992382534381.dkr.ecr.us-east-1.amazonaws.com/cs-prod-craig-bot:22d746a
+        image: 992382534381.dkr.ecr.us-east-1.amazonaws.com/cs-prod-craig-bot:e4f5133
         resources:
           limits:
             cpu: 2

@@ -8,10 +8,21 @@ spec:
     name: cs-prod-us-east-1
     namespace: craig-bot
   project: apps-cs-prod
-  source:
-    repoURL: https://github.com/ConsenSys/w3f-craig.git
-    path: deployment/app
-    targetRevision: master
+  sources:
+    - repoURL: https://github.com/ConsenSys/w3f-craig.git
+      path: deployment/app
+      targetRevision: master
+    - chart: postgresql
+      repoURL: registry-1.docker.io/bitnamicharts
+      targetRevision: 16.3.5
+      helm:
+        values:  |
+          auth:
+            existingSecret: craig-secrets
+            database: craig
+            username: craig
+            adminPasswordKey: pg-admin-password
+            userPasswordKey: pg-user-password
   syncPolicy:
     automated:
       prune: true
