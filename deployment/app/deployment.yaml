@@ -30,6 +30,6 @@ spec:
           - name: DATABASE_URL
             value: "postgresql://craig:$(pg-user-password)@app-craig-bot-postgresql:5432/craig?schema=public"
           - name: REDIS_HOST
-            value: app-craig-bot-redis
+            value: app-craig-bot-redis-master
           - name: REDIS_PORT 
             value: "6379"

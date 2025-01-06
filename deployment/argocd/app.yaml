@@ -31,6 +31,7 @@ spec:
       targetRevision: 20.6.1
       helm:
         values:  |
+          architecture: standalone
           master:
             resourcesPreset: small
   syncPolicy:
