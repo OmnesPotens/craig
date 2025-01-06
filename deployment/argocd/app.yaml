@@ -17,6 +17,8 @@ spec:
       targetRevision: 16.3.5
       helm:
         values:  |
+          primary:
+            resourcesPreset: small
           auth:
             existingSecret: postgresql-secrets
             database: craig
@@ -24,6 +26,13 @@ spec:
             secretKeys:
               adminPasswordKey: pg-admin-password
               userPasswordKey: pg-user-password
+    - chart: redis
+      repoURL: registry-1.docker.io/bitnamicharts
+      targetRevision: 20.6.1
+      helm:
+        values:  |
+          master:
+            resourcesPreset: small
   syncPolicy:
     automated:
       prune: true

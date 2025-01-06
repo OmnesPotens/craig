@@ -29,3 +29,7 @@ spec:
         env:
           - name: DATABASE_URL
             value: "postgresql://craig:$(pg-user-password)@app-craig-bot-postgresql:5432/craig?schema=public"
+          - name: REDIS_HOST
+            value: app-craig-bot-redis
+          - name: REDIS_PORT 
+            value: "6379"
