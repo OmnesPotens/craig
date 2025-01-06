@@ -21,8 +21,9 @@ spec:
             existingSecret: craig-secrets
             database: craig
             username: craig
-            adminPasswordKey: pg-admin-password
-            userPasswordKey: pg-user-password
+            secretKeys:
+              adminPasswordKey: pg-admin-password
+              userPasswordKey: pg-user-password
   syncPolicy:
     automated:
       prune: true
