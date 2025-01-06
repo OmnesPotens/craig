@@ -24,4 +24,8 @@ spec:
         envFrom:
           - secretRef:
               name: craig-secrets
-
+          - secretRef:
+              name: postgresql-secrets
+        env:
+          - name: DATABASE_URL
+            value: "postgresql://craig:$(pg-user-password)@app-craig-bot-postgresql:5432/craig?schema=public"
