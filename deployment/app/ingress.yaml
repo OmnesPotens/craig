@@ -8,9 +8,9 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-      - craig-app.cs.web3factory.consensys.net
+      - craig-app-us-east-1.cs.web3factory.consensys.net
   rules:
-    - host: craig-app.cs.web3factory.consensys.net
+    - host: craig-app-us-east-1.cs.web3factory.consensys.net
       http:
         paths:
         - backend:
@@ -31,9 +31,9 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-      - craig-api.cs.web3factory.consensys.net
+      - craig-api-us-east-1.cs.web3factory.consensys.net
   rules:
-    - host: craig-api.cs.web3factory.consensys.net
+    - host: craig-api-us-east-1.cs.web3factory.consensys.net
       http:
         paths:
         - backend:
