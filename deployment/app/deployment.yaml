@@ -10,6 +10,8 @@ spec:
     metadata:
       labels:
         app: craig
+      annotations:
+        instrumentation.opentelemetry.io/inject-nodejs: "otel-operator/instrumentation-grpc"
     spec:
       containers:
       - name: craig
