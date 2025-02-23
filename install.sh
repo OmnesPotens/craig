@@ -8,22 +8,23 @@ set -e
 
 APT_DEPENDENCIES=(
   wget            # cook
-  make            # cook
-  inkscape        # cook
-  ffmpeg          # cook
-  flac            # cook
-  fdkaac          # cook
-  vorbis-tools    # cook
-  opus-tools      # cook
-  zip             # cook
-  unzip           # cook
-  lsb-release     # redis
-  curl            # redis
-  gpg             # redis
-  postgresql      # web
-  sed             # install
-  coreutils       # install
-  build-essential # install
+  make              # cook
+  inkscape          # cook
+  ffmpeg            # cook
+  flac              # cook
+  fdkaac            # cook
+  vorbis-tools      # cook
+  opus-tools        # cook
+  zip               # cook
+  unzip             # cook
+  lsb-release       # redis
+  curl              # redis
+  gpg               # redis
+  postgresql        # web
+  sed               # install
+  coreutils         # install
+  build-essential   # install
+  python-setuptools # install
 )
 
 # Get the directory of the script being executed
@@ -45,7 +46,7 @@ Usage: install.sh [options]
 options:
     -h, --help       Display this message.
 
-Please modify file 'install_config' located in the main directory of Craig with 
+Please modify file 'install_config' located in the main directory of Craig with
 values for the Discord bot environment variables
 
   - DISCORD_BOT_TOKEN
@@ -55,7 +56,7 @@ values for the Discord bot environment variables
   - DEVELOPMENT_GUILD_ID (optional)
 
 This script will prompt for sudo password so that it can automatically install
-packages and configure PostgreSQL. 
+packages and configure PostgreSQL.
 
 Various steps are required to run local instances of Craig.
 The steps are summarized below:
@@ -109,7 +110,7 @@ install_node() {
   # Install and run node (must come before npm install because npm is included with node)
   # we have to source nvm first otherwise in this non-interactive script it will not be available
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-  
+
   # There is a version error raised somewhere in "nvm.sh"
   # because of set -e at the top of this script, we need to add the || true
   source ~/.nvm/nvm.sh || true
@@ -157,7 +158,7 @@ start_redis() {
         info "You can also try increasing the REDIS_START_TIMEOUT_S value (currently $REDIS_START_TIMEOUT_S seconds)"
         exit 1
       fi
-    done 
+    done
   fi
 
 }
@@ -192,7 +193,7 @@ start_postgresql() {
         info "You can also try increasing the POSTGRESQL_START_TIMEOUT_S value (currently $POSTGRESQL_START_TIMEOUT_S seconds)"
         exit 1
       fi
-    done 
+    done
   fi
 
 
@@ -204,7 +205,7 @@ start_postgresql() {
     # we need to be the postgres superuser to create a db
     # -i to avoid the "could not  change directory to '...': Permission denied message"
     sudo -u postgres -i createdb $DATABASE_NAME
-  fi 
+  fi
 
   # Don't know if this is strictly needed, but add user to run this database
 
@@ -221,7 +222,7 @@ start_postgresql() {
   sudo -u postgres -i psql -c "GRANT ALL ON SCHEMA public TO $POSTGRESQL_USER;"
   sudo -u postgres -i psql -c "GRANT USAGE ON SCHEMA public TO $POSTGRESQL_USER;"
   sudo -u postgres -i psql -c "ALTER DATABASE $DATABASE_NAME OWNER TO $POSTGRESQL_USER;"
-  
+
   sudo -u postgres -i psql -c "\l" # unnecessary but just for debugging
 }
 
@@ -236,7 +237,7 @@ create_env_file() {
   # output the name of the env variable and its value
   for var_name in "${variable_names[@]}"; do
       echo "$var_name=${!var_name}" >> "$output_file"
-  done  
+  done
 
 }
 
@@ -315,8 +316,8 @@ config_react(){
 
   info "Configuring react..."
 
-  cp "$craig_dir/apps/bot/config/_default.js" "$craig_dir/apps/bot/config/default.js" 
-  cp "$craig_dir/apps/tasks/config/_default.js" "$craig_dir/apps/tasks/config/default.js" 
+  cp "$craig_dir/apps/bot/config/_default.js" "$craig_dir/apps/bot/config/default.js"
+  cp "$craig_dir/apps/tasks/config/_default.js" "$craig_dir/apps/tasks/config/default.js"
 
   # not very elegant, but here's some sed magic in order to update the javascript file with the required values
   # we are regexing the following pattern and replacing the 2nd and 4th capture group
@@ -337,7 +338,7 @@ config_react(){
 
 
   # here's some more sed magic. this task isn't needed for local builds
-  # we are regexing the following pattern and replacing the 2nd capture 
+  # we are regexing the following pattern and replacing the 2nd capture
   # group with the ignored task
   #
   # -------------------------------
@@ -370,7 +371,7 @@ config_yarn(){
 
   # only sync Discord slash commands to the guild
   # specified by DEVELOPMENT_GUILD_ID in install.config
-  # yarn run sync:dev 
+  # yarn run sync:dev
 }
 
 start_app(){
@@ -404,7 +405,7 @@ config_cook(){
 # Main script commands
 ###################################################
 
-{ 
+{
   # Parse command-line options
   while [[ $# -gt 0 ]]
   do
@@ -430,7 +431,7 @@ config_cook(){
 
   if ! sudo -v; then
     error "Sudo password entry was cancelled or incorrect."
-    exit 1 
+    exit 1
   fi
 
   source "$craig_dir/install.config"
