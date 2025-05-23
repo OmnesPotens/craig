@@ -1,13 +1,10 @@
 # Use an official Ubuntu base image
 FROM node:18.20.5
 
-# Remove interactive prompts
-ENV DEBIAN_FRONTEND=noninteractive
-
-# Install all required dependencies in advance
+# Install all required dependencies in advance, for performance
 RUN apt-get update && \
     apt-get -y upgrade && \
-    apt-get install -y \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
     # cook
     make inkscape ffmpeg flac vorbis-tools opus-tools zip \
     wget \
@@ -17,11 +14,13 @@ RUN apt-get update && \
     # web
     postgresql \
     # install
-    sed coreutils build-essential \
+    dbus-x11 sed coreutils build-essential python-setuptools \
     # Other dependencies
-    sudo git vim && \
+    sudo git vim locales && \
     # Cleanup
     apt-get -y autoremove
+RUN locale-gen en_US.UTF-8
+ENV LANG=en_US.UTF-8
 
 WORKDIR /app
 
@@ -33,8 +32,8 @@ RUN scripts/buildCook.sh
 RUN scripts/downloadCookBuilds.sh
 RUN npm install -g pm2
 
-RUN yarn install 
-RUN yarn prisma:generate  
+RUN yarn install
+RUN yarn prisma:generate
 RUN yarn run build
 RUN yarn run sync
 
