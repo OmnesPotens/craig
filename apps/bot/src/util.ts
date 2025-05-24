@@ -320,6 +320,8 @@ export async function paginateRecordings(client: CraigBot, userID: string, reque
     } as EditMessageOptions;
 
   const downloadDomain = client.config.craig.downloadDomain;
+  const downloadProtocol = client.config.craig.downloadProtocol;
+  const baseUrl = `${downloadProtocol}://${downloadDomain}`;
   const emojis = (client.modules.get('slash') as SlashModule<any>).emojis;
   const MAX_PAGE_AMOUNT = 5;
   const pages = Math.ceil(recordings.length / MAX_PAGE_AMOUNT);
@@ -366,7 +368,7 @@ export async function paginateRecordings(client: CraigBot, userID: string, reque
               style: ButtonStyle.LINK,
               label: 'Download',
               emoji: emojis.getPartial('download'),
-              url: `https://${downloadDomain}/rec/${r.id}?key=${r.accessKey}`
+              url: `${baseUrl}/rec/${r.id}?key=${r.accessKey}`
             }
           })),
           {
