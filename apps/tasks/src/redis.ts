@@ -9,8 +9,6 @@ export const client = new Redis({
   lazyConnect: true
 });
 
-console.log("=== TASKS ===\n", "REDIS HOST: ", process.env.REDIS_HOST, "\nREDIS PORT: ", process.env.REDIS_PORT)
-
 export interface ReadyState {
   message?: string;
   file?: string;

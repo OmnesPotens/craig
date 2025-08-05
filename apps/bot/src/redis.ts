@@ -9,8 +9,6 @@ export const client = new Redis({
   lazyConnect: true
 });
 
-console.log("=== BOT ===\n", "REDIS HOST: ", process.env.REDIS_HOST, "\nREDIS PORT: ", process.env.REDIS_PORT)
-
 interface Cooldown {
   uses: number;
   expires: number;
