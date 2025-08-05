@@ -103,6 +103,9 @@ if (process.env.SHARD_ID !== undefined && process.env.SHARD_COUNT !== undefined)
     })
   });
 }
+if (process.env.DISCORD_APP_ID !== undefined ) {
+  dexareConfig.applicationID = process.env.DISCORD_APP_ID
+}
 export const client = new CraigBot(dexareConfig);
 
 process.once('SIGINT', async () => {
