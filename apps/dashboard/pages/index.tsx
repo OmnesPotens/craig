@@ -42,12 +42,7 @@ interface DriveProps {
 }
 
 const tierNames: { [key: number]: string } = {
-  [-1]: 'Greater Weasel',
-  0: 'Default',
-  10: 'Supporter',
-  20: 'Better Supporter',
-  30: 'FLAC Demander',
-  100: 'MP3 God'
+  0: 'MP3 God',
 };
 
 const formats: DropdownItem[] = [
