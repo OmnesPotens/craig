@@ -3,11 +3,13 @@ import Redis, { RedisOptions } from 'ioredis';
 
 const redisConfig: RedisOptions = config.get('redis');
 export const client = new Redis({
-  host: redisConfig.host || 'localhost',
-  port: redisConfig.port || 6379,
+  host: process.env.REDIS_HOST  || redisConfig.host || 'localhost',
+  port: process.env.REDIS_PORT ? parseInt(process.env.REDIS_PORT, 10) : (redisConfig.port || 6379),
   keyPrefix: redisConfig.keyPrefix || 'craig:',
   lazyConnect: true
 });
+
+console.log("=== TASKS ===\n", "REDIS HOST: ", client.host, "\nREDIS PORT: ", client.port)
 
 export interface ReadyState {
   message?: string;
