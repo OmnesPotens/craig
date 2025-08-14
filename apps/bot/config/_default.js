@@ -103,7 +103,7 @@ module.exports = {
           recordHours: 24,
           downloadExpiryHours: 720,
           features: ['mix', 'auto', 'drive', 'glowers', 'eccontinuous', 'ecflac', 'mp3'],
-          sizeLimitMult: 5
+          sizeLimitMult: 10
         }
       }
     },
